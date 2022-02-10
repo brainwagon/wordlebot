@@ -45,11 +45,12 @@ except:
   entropy = evaluate(guesses, words)
   pickle.dump(entropy, open("wordle.p", "wb"))
 
+e, guess = entropy[-1]
+
 while len(words) > 1:
-  e, guess = entropy[-1]
   print('Guess "{}" (entropy = {:.2f})'.format(guess, e))
   response = input("What was the response? ")
   words = [ w for w in words if compare(guess, w) == response ]
-  entropy = evaluate(guesses, words)
+  e, guess = evaluate(guesses, words)[0]
 
-print("The secret word was {}".format(entropy[1]))
+print("The secret word was {}".format(guess))
